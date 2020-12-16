@@ -39,6 +39,11 @@
         document.view.action="view_result.php";
         document.view.submit();
     }
+
+    function submit_logout(){
+        document.view.action="logout.php";
+        document.view.submit();
+    }
     
 </script>
 </head>
@@ -52,6 +57,7 @@
     <form action = "view_result.php" method = "post" name = "view">
     <p><input type = "button" value = "Click me to view the test result" onclick="submit_view_result();"></p>
     </form>
+    <p><input type = "button" value = "Click me to logout!" onclick="submit_logout();"></p>
 </body>
 
 </html>

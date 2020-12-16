@@ -23,6 +23,10 @@
             document.view.action="admin_modify.php";
             document.view.submit();
         }
+        function submit_logout(){
+            document.view.action="logout.php";
+            document.view.submit();
+        }
     </script>
 </head>
 <body>
@@ -49,6 +53,12 @@
         <tr>
             <td>
                 <input type = "button" value = "Click me to modify account" onclick="submit_modify();">
+            </td>
+            
+        </tr>
+        <tr>
+            <td>
+                <input type = "button" value = "Click me to Logout!" onclick="submit_logout();">
             </td>
             
         </tr>
