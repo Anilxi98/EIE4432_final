@@ -1,0 +1,144 @@
+<html>
+<head>
+    <title> Question make
+    </title>
+    <script>
+        var finish_flag = false;
+        function submit_finish(){
+            finish_flag = true;
+            sessionStorage.setItem('question_continue',"1");
+            alert("Examination set successfully! Please do not modify it any more!");
+        }
+
+        function time(){
+            var start_time = sessionStorage.getItem('start_time');
+            var end_time = sessionStorage.getItem('end_time');
+            if (finish_flag){
+                alert("You have released the exam before! If you  want to restart one exam just go back to account main page to restart!");
+            }
+            var que_num_con = sessionStorage.getItem('question_continue');
+            if (que_num_con != null){
+                document.getElementById("question_number").textContent = que_num_con;
+            }
+            var time = document.getElementById("Time");
+            time.innerHTML = "The exam that you set will be hold from "+start_time+" to "+end_time;
+        }
+
+        function handleChange_Mul(){
+            var myRequest = new XMLHttpRequest();
+		    myRequest.open("GET", "change_mul.php?q=", true);
+		    myRequest.send();
+		    myRequest.onload = function(){
+			    document.getElementById("txtHint").innerHTML = this.responseText;
+		    }
+        }
+        function handleChange_TF(){
+            var myRequest = new XMLHttpRequest();
+		    myRequest.open("GET", "change_tf.php?q=", true);
+		    myRequest.send();
+		    myRequest.onload = function(){
+			    document.getElementById("txtHint").innerHTML = this.responseText;
+		    }
+        }
+
+        function submit_question(){
+            var ele = document.getElementsByName('question'); 
+            for(i = 0; i < ele.length; i++) { 
+                if(ele[i].checked){
+                    if (ele[i].value == "multiplechoice"){      
+                        var question_number = document.getElementById("question_number").textContent;
+                        var Question = document.getElementById("Question").value;
+                        var OptionA = document.getElementById("OptionA").value;
+                        var OptionB = document.getElementById("OptionB").value;
+                        var OptionC = document.getElementById("OptionC").value;
+                        var OptionD = document.getElementById("OptionD").value;
+                        var sel = document.getElementById("correctoption");
+                        var correctoption = sel.options[sel.selectedIndex].text;
+                        var question_value = document.getElementById('value_question').value;
+                        var data = [Question,OptionA,OptionB,OptionC,OptionD,correctoption,question_number,question_value];
+                        var myJSON = JSON.stringify(data);
+                        var name = "record_"+ele[i].value+".php";
+                        var myRequest = new XMLHttpRequest();
+                        myRequest.open("GET", name+"?q="+myJSON,true);
+                        myRequest.send();
+                        myRequest.onload = function(){
+                            document.getElementById("txtHint2").innerHTML = this.responseText;
+                            alert("Submit Successfully!");
+                            document.getElementById("question_number").textContent = parseInt(question_number) + parseInt("1");
+                            var proceed = parseInt(question_number) + parseInt("1");
+                            sessionStorage.setItem('question_continue', proceed);
+                        }
+                        document.getElementById('value_question').value = '';
+                        document.getElementById('Question').value = '';
+                        document.getElementById('OptionA').value = '';
+                        document.getElementById('OptionB').value = '';
+                        document.getElementById('OptionC').value = '';
+                        document.getElementById('OptionD').value = '';
+                        break;
+                    }
+                    if (ele[i].value == "TF"){
+                        var question_number = document.getElementById("question_number").textContent;
+                        var QuestionText = document.getElementById("QuestionText").value;
+                        var Answer = document.getElementById("Answer").value;
+                        var question_value = document.getElementById('value_question').value;
+                        var data = [question_number,QuestionText,Answer,question_value];
+                        var myJSON = JSON.stringify(data);
+                        var name = "record_"+ele[i].value+".php";
+                        var myRequest = new XMLHttpRequest();
+                        myRequest.open("GET", name+"?q="+myJSON,true);
+                        myRequest.send();
+                        myRequest.onload = function(){
+                            document.getElementById("txtHint2").innerHTML = this.responseText;
+                            alert("Submit Successfully!");
+                            document.getElementById("question_number").textContent = parseInt(question_number) + parseInt("1");
+                            var proceed = parseInt(question_number) + parseInt("1");
+                            sessionStorage.setItem('question_continue', proceed);
+                        }
+                        document.getElementById('value_question').value = '';
+                        document.getElementById('QuestionText').value = '';
+                        document.getElementById('Answer').value = '';
+                        break;
+                    }
+                }
+            }
+            
+        }
+    </script>
+    
+</head>
+<body onload="time();">
+    <h2 id="Time"></h2>
+    <p>Please choose the type of question for question <span id="question_number">1</span>:</p>
+    <fieldset id='question'>
+        <input type='radio' id='multiplechoice' name='question' value='multiplechoice' onchange='handleChange_Mul();'>
+        multiple choice<br>
+        <input type='radio' id='TF' name='question' value='TF' onchange='handleChange_TF();'>
+        True/False<br>
+    </fieldset>
+    <table>
+        <tr>
+            <td><label>Please input the score value of this question:</label></td>
+            <td><input type = "text"  id = "value_question" name = "value_question"></td>
+        </tr>
+        <tr>
+            <div id="txtHint"></div>
+        </tr>
+        
+    </table>
+    <table>
+        <tr>
+            <td><input type = "button" value = "If finish setting one question, click me for next question" onclick="submit_question();"></td>
+            <td><a href='teacher_account.html'>Click me to go back to change another test time</a></td>
+        </tr>
+        <tr>
+            <td><input type = "button" value = "If you finish setting all the questions, click me" onclick="submit_finish();"></td>
+        </tr>
+    </table>
+    
+    
+    <div id="txtHint2"></div>
+
+
+
+</body>
+</html>

@@ -1,0 +1,81 @@
+<html>
+<head>
+    <title> Teacher account
+    </title>
+<script>
+    function name(){
+        var test = sessionStorage.getItem('username');
+        var name = document.getElementById("Welcome");
+        name.innerHTML = "Welcome! Teacher "+test;
+    }
+
+    function submit_question(){
+        var start_year = document.getElementById("start_year").value;
+        var start_month = document.getElementById("start_month").value;
+        var start_day = document.getElementById("start_day").value;
+        var start_hour = document.getElementById("start_hour").value;
+        var start_minutes = document.getElementById("start_minutes").value;
+        var time_start = new Date(start_year, start_month-1, start_day, start_hour, start_minutes,00);
+        var startime = start_year+"-"+start_month+"-"+start_day+" "+start_hour+":"+start_minutes;
+
+        var end_year = document.getElementById("end_year").value;
+        var end_month = document.getElementById("end_month").value;
+        var end_day = document.getElementById("end_day").value;
+        var end_hour = document.getElementById("end_hour").value;
+        var end_minutes = document.getElementById("end_minutes").value;
+        var time_end = new Date(end_year, end_month-1, end_day, end_hour, end_minutes,00);
+        var endtime = end_year+"-"+end_month+"-"+end_day+" "+end_hour+":"+end_minutes;
+
+        sessionStorage.setItem('start_time_compare', time_start);
+        sessionStorage.setItem('end_time_compare', time_end);
+        sessionStorage.setItem('start_time', startime);
+        sessionStorage.setItem('end_time', endtime);
+        document.time_go.action="question_make.html";
+        document.time_go.submit();
+    }
+
+    function submit_result(){
+        document.time_go.action="view_result_teacher.php";
+        document.time_go.submit();
+    }
+    
+</script>
+</head>
+
+<body onload="name();">
+    <h1 id="Welcome"></h1>
+    <p style='max-width: 450px; word-wrap: break-word'>Please enter one slot of time for student to take the exam.
+        For example: 2020-12-15 15:00 to 2020-12-15 18:00</p>
+    <form action = "question_make.html" method = "post" name = "time_go">
+        <table>
+            <tr>
+                <td><label>Please enter the starting time:</label></td>
+                <td>
+                    year:<input type = "text"  id = "start_year" name = "start_year">
+                    month:<input type = "text"  id = "start_month" name = "start_month">
+                    day:<input type = "text"  id = "start_day" name = "start_day">
+                    hour:<input type = "text"  id = "start_hour" name = "start_hour">
+                    minutes:<input type = "text"  id = "start_minutes" name = "start_minutes">
+                </td>
+            </tr>
+            <tr>
+                <td><label>Please enter the ending time:</label></td>
+                <td>
+                    year:<input type = "text"  id = "end_year" name = "end_year">
+                    month:<input type = "text"  id = "end_month" name = "end_month">
+                    day:<input type = "text"  id = "end_day" name = "end_day">
+                    hour:<input type = "text"  id = "end_hour" name = "end_hour">
+                    minutes:<input type = "text"  id = "end_minutes" name = "end_minutes">
+                </td>
+            </tr>
+            <tr>
+                <td><input type = "button" value = "Click me to write your exam questions" onclick="submit_question();"></td>    
+            </tr>
+            <tr>
+                <td><input type = "button" value = "Click me to View the exam result" onclick="submit_result();"></td>    
+            </tr>
+        </table>
+        </form>
+</body>
+
+</html>

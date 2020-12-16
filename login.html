@@ -1,0 +1,66 @@
+<html>
+<head>
+    <title> Login
+    </title>
+    <script>
+        function submit_login(){
+            var name = document.getElementById("Username").value;
+            var psword = document.getElementById("Password").value;
+
+            var data = [name,psword];
+            var myJSON = JSON.stringify(data);
+            var myRequest = new XMLHttpRequest();
+		    myRequest.open("GET", "login_verification.php?q="+myJSON, true);
+		    myRequest.send();
+		    myRequest.onload = function(){
+                document.getElementById("txtHint").innerHTML = this.responseText;
+                var login_text = document.getElementById("txtHint").textContent;
+                login_text = login_text.trim();
+                alert(login_text);
+                if (login_text == "Login successfully!Student"){
+                    sessionStorage.setItem('username', data[0]);
+                    document.login.action="student_account.html";
+                    document.login.submit();
+
+                }
+                
+                else if (login_text == "Login successfully!Teacher"){
+                    sessionStorage.setItem('username', data[0]);
+                    document.login.action="teacher_account.html";
+                    document.login.submit();
+                    
+                }
+                else if (login_text == "Login successfully!Admin"){
+                    document.login.action="admin_account.php";
+                    document.login.submit();
+                }
+            }
+            
+        }
+    </script>
+    
+</head>
+<body>
+    <h1 style="color:black"> Login System </h1>
+    <p>Please enter your user id and password</p>
+    <form action = "" method = "post" name = "login">
+    <table>
+        <tr>
+            <td><label>Username:</label></td>
+            <td><input type = "text"  id = "Username" name = "Username"></td>
+        </tr>
+        <tr>
+            <td><label>Password:</label></td>
+            <td><input type = "text"  id = "Password" name = "Password"></td>
+        </tr>
+        <tr>
+            <td><input type = "button" value = "Login" onclick="submit_login();"></td>    
+        </tr>
+    </table>
+    </form>
+    <p id="txtHint"></p>
+    <p>Do not have one account?<a href='register.html'>Register now!</a></p>
+    <p>Forget your password?<a href='reset.html'>Click me!</a></p>
+</body>
+
+</html>

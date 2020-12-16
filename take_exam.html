@@ -1,0 +1,63 @@
+<html>
+<head>
+    <title>
+        Examination taking
+    </title>
+    <script>
+        function get_question(){
+            var num = document.getElementById("question_number").textContent;
+            if (num == ""){
+                num = "1";
+            }
+            var myRequest = new XMLHttpRequest();
+                myRequest.open("GET", "get_question.php?q="+num,true);
+                myRequest.send();
+                myRequest.onload = function(){
+                    document.getElementById("txtHint").innerHTML = this.responseText;          
+                }
+
+        }
+
+        function submit_next_question(){
+            var flag = true;
+            var number = document.getElementById("question_number").textContent;
+            var ele = document.getElementsByName('mulchoice'); 
+            for(i = 0; i < ele.length; i++) { 
+                if(ele[i].checked){
+                    var data = [ele[i].value,number];
+                    var myJSON = JSON.stringify(data);
+                    var myRequest = new XMLHttpRequest();
+                    myRequest.open("GET", "record_student_answer.php?q="+myJSON,true);
+                    myRequest.send();
+                    myRequest.onload = function(){
+                        flag = false;         
+                    }
+                }
+            }
+
+            if (flag){
+                var ele = document.getElementsByName('TF'); 
+                for(i = 0; i < ele.length; i++) { 
+                    if(ele[i].checked){
+                        var data = [ele[i].value,number];
+                        var myJSON = JSON.stringify(data);
+                        var myRequest = new XMLHttpRequest();
+                        myRequest.open("GET", "record_student_answer.php?q="+myJSON,true);
+                        myRequest.send();
+                        
+                    }
+                }
+            }
+            
+            
+            num = parseInt(number) + parseInt("1");
+            document.getElementById("question_number").textContent = num;
+            get_question();
+        }
+    </script>
+</head>
+<body onload="get_question();">
+    <p>Please finish the question <span id="question_number">1</span>:</p>
+    <div id="txtHint"></div>
+</body>
+</html>

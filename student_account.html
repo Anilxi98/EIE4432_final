@@ -1,0 +1,57 @@
+<html>
+<head>
+    <title> Student account
+    </title>
+<script>
+    var start_time_compare;
+    var end_time_compare;
+    function name(){
+        var test = sessionStorage.getItem('username');
+        var exam_time = document.getElementById("exam_time");
+        var name = document.getElementById("Welcome");     
+        name.innerHTML = "Welcome! Student "+test;
+        var start_time = sessionStorage.getItem('start_time');
+        var end_time = sessionStorage.getItem('end_time');
+        if (start_time == null){
+            exam_time.innerHTML = "There is no examination now!";
+        }
+        else {
+            exam_time.innerHTML = "The examination will hold from "+start_time+" to "+ end_time;
+        }
+        start_time_compare = sessionStorage.getItem('start_time_compare');
+        end_time_compare = sessionStorage.getItem('end_time_compare');
+    }
+
+    function submit_take_exam(){
+        var time_now = new Date();
+        var start_com = new Date(start_time_compare);
+        var end_com = new Date(end_time_compare);
+        if (time_now < start_com || time_now > end_com){
+            alert("Cannot take the exam because it is not the exam time!");
+        }
+        else {
+            document.take_exam.action="take_exam.html";
+            document.take_exam.submit();
+        }
+    }
+
+    function submit_view_result(){
+        document.view.action="view_result.php";
+        document.view.submit();
+    }
+    
+</script>
+</head>
+<body onload="name();">
+    <h1 id="Welcome"></h1>
+    <h3 id="exam_time"></h3>
+    <p>It is noticed that students can only take the exam during the exam period!</p>
+    <form action = "take_exam.html" method = "post" name = "take_exam">
+    <input type = "button" value = "Click me to take the exam" onclick="submit_take_exam();">
+    </form>
+    <form action = "view_result.php" method = "post" name = "view">
+    <p><input type = "button" value = "Click me to view the test result" onclick="submit_view_result();"></p>
+    </form>
+</body>
+
+</html>
