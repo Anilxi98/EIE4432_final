@@ -1,5 +1,6 @@
 <html>
 <head>
+    <link rel ="stylesheet" type="text/css" href="login.css" />
     <title> Login
     </title>
     <script>
@@ -41,26 +42,28 @@
     
 </head>
 <body>
-    <h1 style="color:black"> Login System </h1>
-    <p>Please enter your user id and password</p>
+    <h1 style="color:white; margin-top: 100px;"> Online Exam System</h1>
+    <div id = "modal">
+    <h2 style="color:black"> Login Page </h2>
+    <p>Enter your credentials</p>
     <form action = "" method = "post" name = "login">
-    <table>
+    <table style = "display: inline-block;">
         <tr>
             <td><label>Username:</label></td>
             <td><input type = "text"  id = "Username" name = "Username"></td>
         </tr>
         <tr>
             <td><label>Password:</label></td>
-            <td><input type = "text"  id = "Password" name = "Password"></td>
+            <td><input type = "password"  id = "Password" name = "Password"></td>
         </tr>
-        <tr>
-            <td><input type = "button" value = "Login" onclick="submit_login();"></td>    
-        </tr>
+
     </table>
+    <input type = "button" value = "Login" onclick="submit_login();" id = "login">
     </form>
     <p id="txtHint"></p>
-    <p>Do not have one account?<a href='register.html'>Register now!</a></p>
-    <p>Forget your password?<a href='reset.html'>Click me!</a></p>
+    <p>Do not have an account? <a href='register.html'>Register now!</a></p>
+    <p>Forget your password? <a href='reset.html'>Click me!</a></p>
+</div>
 </body>
 
 </html>

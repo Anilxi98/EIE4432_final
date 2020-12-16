@@ -34,12 +34,13 @@
     </script>
     <link rel ="stylesheet" type="text/css" href="register.css"/>
 </head>
-<body>
-    <h1 style="color:black"> Register System </h1>
+<body id = "body">
+    <h1 style="color:white; margin-top: 100px;"> Register Account </h1>
+    <div id = "modal">
     <form action = "" method = "post" name = "regi">
-    <table>
+    <table style = "display: inline-block;">
         <tr>
-            <p>Please choose the role of your account:</p>
+            <h3>Please choose your role:</h3>
             <fieldset id="group1">
             <input type="radio" id="student" name="group1" value="student" onchange="handleChange_Stu();">
             <label for="student">Student</label><br>
@@ -48,37 +49,35 @@
             </fieldset>
         </tr>
         <tr>
-            <td><label>Username:</label></td>
+            <td style="float:right"><label>Username:</label></td>
             <td><input type = "text"  id = "Re_Username" name = "Re_Username"></td>
         </tr>
         <tr>
-            <td><label>Password:</label></td>
+            <td style="float:right"><label>Password:</label></td>
             <td><input type = "text"  id = "Re_Password" name = "Re_Password"></td>
         </tr>
         <tr>
-            <td><label>nick name:</label></td>
+            <td style="float:right"><label>nick name:</label></td>
             <td><input type = "text"  id = "Re_Nickname" name = "Re_Nickname"></td>
         </tr>
         <tr>
-            <td><label>email:</label></td>
+            <td style="float:right"><label>email:</label></td>
             <td><input type = "text"  id = "Re_Email" name = "Re_Email"></td>
         </tr>
         
     </table>
-    <table>
+    <table style = "display: inline-block">
         <tr>
             <div id="txtHint"></div>
         </tr>
         <tr>
-            <td><label>choose one profile image, input in integer number:</label></td>
+            <td><label>Choose your profile image:</label></td>
             <td><input type = "text"  id = "Re_image" name = "Re_image"></td>
         </tr>
     </table>
         
-    <input type = "button" value = "Register" onclick="submit_register();">
+    <input type = "button" value = "Register" onclick="submit_register();" id = "register">
     </form>
-    
-    
+    </div>
 </body>
-
 </html>

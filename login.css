@@ -1,4 +1,5 @@
-#body {
+
+body {
     background:linear-gradient(to left,#97ABFF,#123597);
     text-align: center;
 }
@@ -9,7 +10,7 @@
     height: auto;
     width: auto;
 }
-#register {
+#login {
     background-color: #4CAF50;
     color: white;
     padding: 14px 20px;
@@ -17,8 +18,4 @@
     border: none;
     cursor: pointer;
     width: 100%;
-}
-
-fieldset {
-    border: 0;
 }
